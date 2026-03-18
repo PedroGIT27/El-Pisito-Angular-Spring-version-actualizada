@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
-import { ControlCargaService } from '../../../core/services/control-carga-service';
+
 import { PaginaBannerService } from '../../../core/services/pagina-banner-service';
 import { PaginaService } from '../../../core/services/pagina-service';
 import { Pagina } from '../../../core/models/entities';
@@ -11,7 +11,7 @@ import { Preloader } from "../preloader/preloader";
 @Component({
   selector: 'app-contenedor-banners',
   imports: [Banner, Preloader],
-  providers:[ControlCargaService],
+  
   templateUrl: './contenedor-banners.html',
   styleUrl: './contenedor-banners.css',
 })
@@ -35,14 +35,14 @@ export class ContenedorBanners implements OnInit {
 
   idPagina:number;
   banners = signal<Array<BannerImagenDTO>>([]);
+cargaCompletada=signal<boolean>(false);
 
-  public _controlCargaService:ControlCargaService=inject(ControlCargaService);
   private _paginaBannerService:PaginaBannerService= inject(PaginaBannerService);
   private _paginaService:PaginaService=inject(PaginaService);
 
   ngOnInit(): void {
 
-    this._controlCargaService.nFases.set(1);
+
     this.getDatos();
   }
 
@@ -63,7 +63,8 @@ export class ContenedorBanners implements OnInit {
 
           next: (datos:Array<BannerImagenDTO>) => {
             this.banners.set(datos);
-            this._controlCargaService.faseCarga();
+            this.cargaCompletada.set(true);
+            
           
           }
             

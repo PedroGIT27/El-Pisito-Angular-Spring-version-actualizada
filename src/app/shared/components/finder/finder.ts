@@ -5,14 +5,14 @@ import { PoblacionService } from '../../../core/services/poblacion-service';
 import { OperacionService } from '../../../core/services/operacion-service';
 import { Router } from '@angular/router';
 import { Operacion, Poblacion, Tipo } from '../../../core/models/entities';
-import { ControlCargaService } from '../../../core/services/control-carga-service';
 import { InmuebleService } from '../../../core/services/inmueble-service';
 import { Preloader } from "../preloader/preloader";
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-finder',
   imports: [FormsModule, Preloader],
-  providers:[ControlCargaService],
+  
   templateUrl: './finder.html',
   styleUrl: './finder.css',
 })
@@ -27,48 +27,66 @@ export class Finder implements OnInit {
   tipoElegido:number;
   poblacionElegida:number;
   operacionElegida:number;
+  cargaCompletada=signal<boolean>(false);
 
   private _tipoService:TipoService=inject(TipoService);
   private _poblacionService:PoblacionService=inject(PoblacionService);
   private _operacionService: OperacionService=inject(OperacionService);
-  public _controlCargaService:ControlCargaService=inject(ControlCargaService);
   private _router:Router=inject(Router);
 
 
   ngOnInit(): void {
-     this._controlCargaService.nFases.set(1);
+ 
     this.getDatos();
   }
 
 
-  getDatos():void{
+   getDatos():void{
+//forkjoin sincroniza las llamadas y no las suscribe hasta que todas hayan sido resueltas.
+forkJoin({
 
-    this._poblacionService.getPoblacionesActivas().subscribe({
+poblaciones:this._poblacionService.getPoblacionesActivas(),
+tipos: this._tipoService.getTiposActivos(),
+operaciones:this._operacionService.getOperacionesActivas()
 
-      next: (datos:Array<Poblacion>) => { this.poblaciones.set(datos);}
-      ,
-      complete: () => {this._controlCargaService.faseCarga();}
+}).subscribe({
 
-    });
+  next:(result)=>{
 
-    this._tipoService.getTiposActivos().subscribe({
-
-      next: (datos:Array<Tipo>) => { this.tipos.set(datos);}
-      ,
-      complete: () => {this._controlCargaService.faseCarga();}
-
-    });
-
-    this._operacionService.getOperacionesActivas().subscribe({
-
-      next: (datos:Array<Operacion>) => { this.operaciones.set(datos);}
-      ,
-      complete: () => {this._controlCargaService.faseCarga();}
-
-    });
-
-
+    this.poblaciones.set(result.poblaciones);
+    this.tipos.set(result.tipos);
+    this.operaciones.set(result.operaciones);
+    this.cargaCompletada.set(true);
   }
+
+});  
+
+  // //   this._poblacionService.getPoblacionesActivas().subscribe({
+
+  // //     next: (datos:Array<Poblacion>) => { this.poblaciones.set(datos);}
+  // //     ,
+  // //     complete: () => {this._controlCargaService.faseCarga();}
+
+  // //   });
+
+  // //   this._tipoService.getTiposActivos().subscribe({
+
+  // //     next: (datos:Array<Tipo>) => { this.tipos.set(datos);}
+  // //     ,
+  // //     complete: () => {this._controlCargaService.faseCarga();}
+
+  // //   });
+
+  // //   this._operacionService.getOperacionesActivas().subscribe({
+
+  // //     next: (datos:Array<Operacion>) => { this.operaciones.set(datos);}
+  // //     ,
+  // //     complete: () => {this._controlCargaService.faseCarga();}
+
+  // //   });
+
+
+   }
 
 
 

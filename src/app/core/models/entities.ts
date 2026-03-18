@@ -137,5 +137,15 @@ export interface Tematica{
     nombre:string;
     actual?:number;
     activo?:number;
-    nBanners?:number; //esto no lo recibimos de la API
+   
+}
+
+export interface TematicaDTO{
+
+    id?:number;
+    nombre:string;
+    actual?:number;
+    activo?:number;
+    numeroBanners?:number;//Numero de banners Carousel que tiene la tematica
+   
 }

@@ -1,0 +1,26 @@
+<section class="contenedor" (click)="destinoBanner()">
+
+
+    <div>
+       <!--  <img appNoImagenBanner [src]= "urlMedia + imagenes()[0].url" [alt]= "urlMedia + imagenes()[0].altImagen" class="imagen"> -->
+        @if(imagenes()[0]){
+
+            <img  [src]= "urlMedia + imagenes()[0].url" [alt]= "urlMedia + imagenes()[0].altImagen" class="imagen">
+
+        }@else {
+            <img src="assets/img/no-banner.jpg" class="imagen">
+        }
+       
+       
+       <img src="assets/img/el-pisito.svg" class="logito">
+    </div>
+
+
+    <div class="texto">
+
+        <h3>{{datosBanner.titular}}</h3>
+        <p>{{datosBanner.claim}}</p>
+    </div>
+
+
+</section>

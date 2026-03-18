@@ -1,0 +1,74 @@
+<section class="contenedor">
+
+
+     @if(_controlCargaService.cargaCompletada()){
+
+        <form #form ="ngForm" (ngSubmit)="find()" class="formulario">
+
+            <h6 class="titulo-busqueda">
+
+                <span>BUSCA TU INMUEBLE!!!</span>
+                <div>
+                    <img src="assets/img/el-pisito.svg" class="imagen-logo">
+                    <img src="assets/img/el-pisito.svg" class="imagen-logo2">
+                    <img src="assets/img/el-pisito.svg" class="imagen-logo3">
+                </div>
+
+
+            </h6>
+
+            <div class="mb-3">
+                <label for="poblacion">POBLACION*</label>
+
+                <select name="poblacion" id="poblacion" class="form-select" required [(ngModel)]="poblacionElegida")>
+                    @for(poblacion  of poblaciones()   ; track poblacion.id){
+
+                        <option [value]="poblacion.id">{{poblacion.nombre}} ({{poblacion.provincia.nombre}})</option>
+                    }
+                    
+                </select>
+            </div>
+
+
+            
+            <div class="mb-3">
+                <label for="tipo">TIPO*</label>
+
+                <select name="tipo" id="tipo" class="form-select" required [(ngModel)]="tipoElegido")>
+                    @for(tipo  of tipos()   ; track tipo.id){
+
+                        <option [value]="tipo.id">{{tipo.nombre}}</option>
+                    }
+                    
+                </select>
+            </div>
+
+
+
+            <div class="mb-3">
+                <label for="operacion">OPERACIÓN*</label>
+
+                <select name="operacion" id="operacion" class="form-select" required [(ngModel)]="operacionElegida")>
+                    @for(operacion  of operaciones()   ; track operacion.id){
+
+                        <option [value]="operacion.id">{{operacion.nombre}}</option>
+                    }
+                    
+                </select>
+            </div>
+
+
+            <div class="contenedor-boton">
+
+                <button type="submit" class="btn btn-sm btn-primary" [disabled]="form.invalid">Buscar inmuebles</button>
+            
+            </div>
+
+
+
+        </form>
+    }@else {
+        <app-preloader/>
+    }
+
+</section>

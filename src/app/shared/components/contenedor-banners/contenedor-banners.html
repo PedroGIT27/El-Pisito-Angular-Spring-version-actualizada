@@ -1,0 +1,17 @@
+<section class="contenedor">
+
+    @if(_controlCargaService.cargaCompletada()){
+
+        @for( banner  of this.banners()   ;  track banner.id ){
+
+            <app-banner [datosBanner]="banner"/>
+
+        }
+
+    }@else{
+
+        <app-preloader/>
+
+    }
+
+</section>

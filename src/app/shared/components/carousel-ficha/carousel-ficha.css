@@ -1,0 +1,102 @@
+/* ================================================= */
+/* FIRST MOBILE */
+/* ================================================= */
+.contenedor{
+    position: relative;
+}
+
+.gadget-numero-imagenes{
+    position:absolute;
+    bottom:20px;
+    left: 20px;
+    z-index: 30;
+}
+
+/* CON ESTOS ESTILOS DE BOOTSTRAP CONSEGUIMOS QUE LOS BOTONES DEL CAROUSEL
+NO VAYAN DESDE ARRIBA HASTA ABAJO EVITANDO COLAPSOS ENTRE BOTONES 
+(CORAZON FAVORITOS, INMOBILIARIA ETC) */
+button.carousel-control-prev{
+
+    top:35%;
+    left:8%;
+    height: 30%;
+    transform:translate(-50%); 
+    /* background-color:orange; */
+}
+
+
+button.carousel-control-next{
+
+    top:35%;
+    right:8%;
+    height: 30%;
+    transform:translate(50%);
+    /* background-color:orange; */
+}
+/*///////////////////////////////////////////////////////////////*/
+
+.contenedor-no-imagen img{
+
+    width: 100%;
+    height: auto;
+
+}
+
+.gadget-logo{
+
+    position:absolute;
+    right: 10px;
+    top:10px;
+    z-index: 11;
+}
+
+.oportunidad{
+
+    position: absolute;
+    top:8px;
+    right: 130px;
+    z-index: 12;
+}
+
+/* ================================================= */
+/* MEDIA QUERIES */
+/* ================================================= */
+
+/* MAYOR O IGUAL DE 576PX (A PARTIR DE 575PX INCLUSIVE) - SMARTPHONES */
+@media only screen and (min-width:576px){
+
+ 
+
+
+
+}
+
+
+/* MAYOR O IGUAL DE 768PX (A PARTIR DE 768PX INCLUSIVE) - SMARTPHONES GRANDES, TABLETS */
+@media only screen and (min-width:768px){
+
+    .contenedor{
+        position:static;
+    }
+   
+
+
+}
+
+
+
+/* MAYOR O IGUAL DE 992PX (A PARTIR DE 992PX INCLUSIVE) - PC PEQUEÑOS, LAPTOPS */
+@media only screen and (min-width:992px){
+
+
+  
+
+}
+
+/* MAYOR O IGUAL DE 1200PX (A PARTIR DE 1200PX INCLUSIVE) - PC GRANDES, TELEVISIONES */
+@media only screen and (min-width:1200px){
+
+
+
+
+}

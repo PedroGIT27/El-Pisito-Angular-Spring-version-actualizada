@@ -1,0 +1,68 @@
+<section class="contenedor">
+
+<!-- EN EL CASO DE QUE EL INMUEBLE TENGA AL MENOS UNA IMAGEN -->
+  @if(imagenes().length > 0){
+
+    <div id="carouselFicha{{datos.id}}" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+            <div class="carousel-inner">
+
+                @for( imagen  of imagenes() ; track imagen.id ; let i = $index){
+                
+                <div [ngClass]="{
+                    'carousel-item':true,
+                    'active':i==0,
+                }">
+                <img [src]=urlMedia+imagen.url [alt]=imagen.altImagen class="d-block w-100">
+                </div>
+
+                }
+            
+            </div>
+
+
+
+            @if(imagenes().length > 1){
+
+                <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carouselFicha' + datos.id" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carouselFicha' + datos.id" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+
+            }
+
+    
+        </div>
+
+     }@else{
+
+
+        <div class="contenedor-no-imagen">
+
+            <img src="assets/img/imagen-pisito-defecto.jpg" alt="imagen inmueble sin imagen">
+
+        </div>
+
+     }<!--FIN DEL IF  @if(imagenes().length > 0 -->
+
+     <!-- GADGET NÚMERO DE IMÁGENES -->
+      <app-gadget-numero-imagenes class="gadget-numero-imagenes" [numeroImagenes]="imagenes().length"/>
+
+    <!-- LOGO INMOBILIARIA -->
+     <!-- SOLO SE VE SI ESTAMOS EN LA FICHA DE INMOBILIARIA -->
+     @if(dondeEstoy != "inmobiliaria"){
+
+        <app-gadget-logo-inmobiliaria class="gadget-logo" [datosInmueble]="datos"/>
+
+     }
+
+     <!-- GADGET OPORTUNIDAD -->
+      <app-gadget-oportunidad class="oportunidad"/>
+
+
+</section>

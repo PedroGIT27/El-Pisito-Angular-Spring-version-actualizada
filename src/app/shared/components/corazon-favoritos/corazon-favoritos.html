@@ -1,0 +1,35 @@
+<section class="contenedor">
+
+
+    @if(_authService.isLoggedIn() && _controlCargaService.cargaCompletada()){
+
+        @if(esFavorito()){
+
+
+            <i class="fa-solid fa-heart" (click)="deleteFavorito()"></i>
+
+        }@else {
+
+
+            <i class="fa-regular fa-heart" (click)="addFavorito()"></i>
+
+
+        }
+
+
+
+
+    }@else {
+
+        <i class="fa-regular fa-heart" routerLink="/auth/login"></i>
+
+
+    }
+
+
+
+
+</section>
+
+
+

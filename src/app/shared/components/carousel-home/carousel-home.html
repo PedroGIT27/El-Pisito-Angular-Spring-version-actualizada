@@ -1,0 +1,65 @@
+@if(cargaCompletada()){
+    <div id="carousel-home" class="carousel slide" data-bs-ride="carousel">
+    
+        <div class="carousel-indicators">
+            @for(  banner of  bannersCarousel() ; track banner.id ; let i = $index ){
+            <button type="button" data-bs-target="#carousel-home" [attr.data-bs-slide-to]="i" [ngClass]="{
+                'active': i == 0
+                
+                }"></button>
+                <!-- <button type="button" data-bs-target="#carousel-home" [attr.data-bs-slide-to]="i" class="active"
+                aria-current="false" aria-label="Slide 1"></button> -->
+            }
+        </div>
+
+        <div class="carousel-inner">
+
+            @for(  banner of  bannersCarousel() ; track banner.id ; let i = $index ){
+
+                <div [ngClass]="{
+                    'para-posicionamiento' : true,
+                    'carousel-item': true,
+                    'active': i == 0
+                    }">
+
+                    <img [src]= "urlMedia + banner.imagenes[0].url" class="d-block w-100" [alt]= "urlMedia + banner.imagenes[0].altImagen">
+                    
+                    @if(i == 0){
+                        <img class="logo" src="assets/img/elpisito-logo-carousel.png">
+                    }
+                    
+                    
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{banner.titular}}</h5>
+                        <p>{{banner.claim}}</p>
+                    </div>
+                </div>
+
+            }
+
+
+        </div>
+
+        @if( bannersCarousel().length > 1){
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-home"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previo</span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-home"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+
+        }
+
+    </div>
+
+}@else {
+
+    <app-preloader/>
+    
+}
